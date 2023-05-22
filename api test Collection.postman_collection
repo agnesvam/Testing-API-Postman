@@ -1,0 +1,2739 @@
+{
+	"info": {
+		"_postman_id": "824edd98-c724-431d-b785-9f68a9d8e75a",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15912502"
+	},
+	"item": [
+		{
+			"name": "Positive cases",
+			"item": [
+				{
+					"name": "Retrieve the list of users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json; charset=utf-8\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"// structure test\r",
+									"var schema = {\r",
+									"    \"type\": \"array\",\r",
+									"    \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"required\": [\r",
+									"            \"id\",\r",
+									"            \"name\",\r",
+									"            \"email\",\r",
+									"            \"gender\",\r",
+									"            \"status\"\r",
+									"        ],\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"name\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"email\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"gender\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"status\": {\r",
+									"                \"type\": \"string\"\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//keys test\r",
+									"pm.test(\"Response body valid keys test\", function () {\r",
+									"  var data = JSON.parse(responseBody);\r",
+									"  data.forEach(function(item) {\r",
+									"      pm.expect(item).to.have.all.keys('id', 'name', 'email', 'gender', 'status'); \r",
+									"  });\r",
+									"});\r",
+									"//value test for status and gender keys\r",
+									"pm.test(\"Status should be active/inactive\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"for (let i = 0; i < json_Data.length; i++) {\r",
+									"  actual_status = json_Data[i].status\r",
+									" pm.expect(actual_status).to.be.oneOf([\"active\", \"inactive\"]);\r",
+									"}\r",
+									"});\r",
+									"pm.test(\"gender should be female/male\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"for (let i = 0; i < json_Data.length; i++) {\r",
+									"  actual_gender = json_Data[i].gender\r",
+									" pm.expect(actual_gender).to.be.oneOf([\"female\", \"male\"]);\r",
+									"}\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve the posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json; charset=utf-8\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"// structure test\r",
+									"var schema = {\r",
+									"    \"type\": \"array\",\r",
+									"    \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"required\": [\r",
+									"            \"id\",\r",
+									"            \"user_id\",\r",
+									"            \"title\",\r",
+									"            \"body\"\r",
+									"        ],\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"user_id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"body\": {\r",
+									"                \"type\": \"string\"\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//keys test\r",
+									"pm.test(\"Response body valid keys test\", function () {\r",
+									"  var data = JSON.parse(responseBody);\r",
+									"  data.forEach(function(item) {\r",
+									"      pm.expect(item).to.have.all.keys('id', 'user_id', 'title', 'body'); \r",
+									"  });\r",
+									"});\r",
+									"//value test for unique ID's\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"let IDs = response.map(obj => obj.id); \r",
+									"\r",
+									"function hasDuplicates(array) {\r",
+									"    return (new Set(array)).size !== array.length;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Check IDs are unique\", () => {\r",
+									"    pm.expect(hasDuplicates(IDs)).to.equal(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/posts",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve the todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//count the number of todos with the status “completed” and “pending”\r",
+									"function countEachStatus() {\r",
+									"    var json_Data= pm.response.json();\r",
+									"    var completed=0;\r",
+									"    var pending=0;\r",
+									"    for (let i = 0; i < json_Data.length; i++) {\r",
+									"  if (json_Data[i].status== \"completed\"){\r",
+									"      completed=completed+1;}\r",
+									"   else if (json_Data[i].status== \"pending\"){\r",
+									"      pending=pending+1;}\r",
+									"}\r",
+									"console.log(completed);\r",
+									"  pm.collectionVariables.set(\"completed_count\", completed);\r",
+									"  pm.collectionVariables.set(\"pending_count\", pending);\r",
+									"}\r",
+									"countEachStatus();\r",
+									"\r",
+									"\r",
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json; charset=utf-8\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"// structure test\r",
+									"var schema = {\r",
+									"    \"type\": \"array\",\r",
+									"    \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"required\": [\r",
+									"            \"id\",\r",
+									"            \"user_id\",\r",
+									"            \"title\",\r",
+									"            \"due_on\",\r",
+									"            \"status\"\r",
+									"        ],\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"user_id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"due_on\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"status\": {\r",
+									"                \"type\": \"string\"\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//keys test\r",
+									"pm.test(\"Response body valid keys test\", function () {\r",
+									"  var data = JSON.parse(responseBody);\r",
+									"  data.forEach(function(item) {\r",
+									"      pm.expect(item).to.have.all.keys('id', 'user_id', 'title', 'due_on','status'); \r",
+									"  });\r",
+									"});\r",
+									"//value test for unique ID's, and status predefinied\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"let IDs = response.map(obj => obj.id); \r",
+									"\r",
+									"function hasDuplicates(array) {\r",
+									"    return (new Set(array)).size !== array.length;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Check IDs are unique\", () => {\r",
+									"    pm.expect(hasDuplicates(IDs)).to.equal(false);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"status should be pending/completed\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"for (let i = 0; i < json_Data.length; i++) {\r",
+									"  actual_status = json_Data[i].status\r",
+									" pm.expect(actual_status).to.be.oneOf([\"pending\", \"completed\"]);\r",
+									"}\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/todos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json; charset=utf-8\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = JSON.parse(pm.request.body);\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"// request structure test\r",
+									"var schema ={\r",
+									"    \"type\": \"object\",\r",
+									"    \"required\": [\r",
+									"        \"name\",\r",
+									"        \"email\",\r",
+									"        \"gender\",\r",
+									"        \"status\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"name\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"email\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"gender\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"status\": {\r",
+									"            \"type\": \"string\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"var jsonRequest = JSON.parse(pm.request.body);\r",
+									"pm.test('Request Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonRequest, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//response structure test \r",
+									"var schema ={\r",
+									"    \"type\": \"object\",\r",
+									"    \"required\": [\r",
+									"        \"id\",\r",
+									"        \"name\",\r",
+									"        \"email\",\r",
+									"        \"gender\",\r",
+									"        \"status\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"email\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"gender\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"status\": {\r",
+									"            \"type\": \"string\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.test('Response Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//keys test\r",
+									"pm.test(\"Request body valid keys test\", function () {\r",
+									"  var data = JSON.parse(pm.request.body);\r",
+									"\r",
+									"for (var i=0; i < data.length; i++) {\r",
+									"    pm.expect(data).to.have.keys(['name', 'email', 'gender', 'status']);    \r",
+									"}\r",
+									"\r",
+									"});\r",
+									"//value test for status and gender keys\r",
+									"pm.test(\"Status should be active/inactive\", function () {\r",
+									"    var json_Data = JSON.parse(pm.request.body);\r",
+									" \r",
+									"for (let i = 0; i < json_Data.length; i++) {\r",
+									"  actual_status = json_Data[i].status\r",
+									" pm.expect(actual_status).to.be.oneOf([\"active\", \"inactive\"]);\r",
+									"}\r",
+									"});\r",
+									"pm.test(\"gender should be female/male\", function () {\r",
+									"    var json_Data = JSON.parse(pm.request.body);\r",
+									"for (let i = 0; i < json_Data.length; i++) {\r",
+									"  actual_gender = json_Data[i].gender\r",
+									" pm.expect(actual_gender).to.be.oneOf([\"female\", \"male\"]);\r",
+									"}\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followAuthorizationHeader": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Luke Guneta\",\r\n    \"email\": \"Ledwddsm55f4@pacocha.co\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json; charset=utf-8\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"//response structure test\r",
+									"var schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"required\": [\r",
+									"            \"id\",\r",
+									"            \"user_id\",\r",
+									"            \"title\",\r",
+									"            \"body\"\r",
+									"        ],\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"user_id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"body\": {\r",
+									"                \"type\": \"string\"\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//keys test\r",
+									"pm.test(\"Response body valid keys test\", function () {\r",
+									"  var data = JSON.parse(responseBody);\r",
+									"  pm.expect(data).to.have.all.keys('id', 'user_id', 'title', 'body'); \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"user_id\": 1748853,\r\n        \"title\": \"Tertius modi cum creator sed voluptatibus.\",\r\n        \"body\": \"Constans et colo. Teres vulpes tego. Nihil versus artificiose. Dolorem colloco caecus. Cerno ara desolo. Censura soleo totus. Reiciendis casus succurro. Suffragium trepide reiciendis. Thesaurus abbas cursim. Ager et amitto. Tutamen commodi copia. Ducimus trans tonsor. Audentia considero somnus. Avaritia vis dolores. Sollers cohaero complectus. Vivo admoneo voluptas. Absens bestia est. Ultra defluo at. Avarus placeat aut.\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/1748909/posts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"1748909",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json; charset=utf-8\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"// structure test\r",
+									"var schema = {\r",
+									"    \"type\": \"object\",\r",
+									"    \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"required\": [\r",
+									"            \"id\",\r",
+									"            \"user_id\",\r",
+									"            \"title\",\r",
+									"            \"due_on\",\r",
+									"            \"status\"\r",
+									"        ],\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"user_id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"due_on\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"status\": {\r",
+									"                \"type\": \"string\"\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//keys test\r",
+									"pm.test(\"Response body valid keys test\", function () {\r",
+									"  var data = JSON.parse(responseBody);\r",
+									"  pm.expect(data).to.have.all.keys('id', 'user_id', 'title', 'due_on','status'); \r",
+									"  \r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"status should be pending/completed\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"  actual_status = json_Data.status;\r",
+									" pm.expect(actual_status).to.be.oneOf([\"pending\", \"completed\"]);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n       \r\n        \"user_id\":1748853,\r\n        \"title\": \"Omnis impedit attonbitus molestiae demo.\",\r\n        \"due_on\": \"2023-05-22T00:00:00.000+05:30\",\r\n        \"status\": \"completed\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909/todos",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change the created user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//status test\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json; charset=utf-8\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');\r",
+									"});\r",
+									"\r",
+									"//request body type test\r",
+									"const jsonData = JSON.parse(pm.request.body);\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"//request body structure test\r",
+									"var schema ={\r",
+									"    \"type\": \"object\",\r",
+									"    \"required\": [\r",
+									"        \"id\",\r",
+									"        \"name\",\r",
+									"        \"email\",\r",
+									"        \"gender\",\r",
+									"        \"status\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"email\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"gender\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"status\": {\r",
+									"            \"type\": \"string\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"var jsonRequest = JSON.parse(pm.request.body);\r",
+									"pm.test('Request Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonRequest, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//value test for status and gender keys\r",
+									"pm.test(\"Status should be active/inactive\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"  actual_status = json_Data.status\r",
+									" pm.expect(actual_status).to.be.oneOf([\"active\", \"inactive\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"gender should be female/male\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"  actual_gender = json_Data.gender\r",
+									" pm.expect(actual_gender).to.be.oneOf([\"female\", \"male\"]);\r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1799054,\r\n  \"name\": \"Anala Patel\",\r\n  \"email\": \"s0Luke7d898sd_gd@pacocha.co\",\r\n  \"gender\": \"female\",\r\n  \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1799054",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1799054"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/users/1849381",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								"1849381"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete the changed user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//status code test 204\r",
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//response body test\r",
+									"var jsonResponse = pm.response.text();\r",
+									"pm.test('Response should be blank', function() {\r",
+									"  console.log(jsonResponse.length);\r",
+									"  pm.expect(jsonResponse.length).to.eql(0);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1799054",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1799054"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Negative cases",
+			"item": [
+				{
+					"name": "Retrieve the list of users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//status code \r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"// structure test- wrong structure\r",
+									"var schema = {\r",
+									"    \"type\": \"array\",\r",
+									"    \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"required\": [\r",
+									"            \"id\",\r",
+									"            \"name\",\r",
+									"            \"email\",\r",
+									"            \"gender\",\r",
+									"            \"status\",\r",
+									"            \"status2\"\r",
+									"        ],\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"name\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"email\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"gender\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"status\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"status2\": {\r",
+									"                \"type\": \"string\"\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//keys test- keys are missing\r",
+									"pm.test(\"Response body valid keys test\", function () {\r",
+									"  var data = JSON.parse(responseBody);\r",
+									"  data.forEach(function(item) {\r",
+									"      pm.expect(item).to.have.all.keys('id', 'name', 'email', 'gender'); \r",
+									"  });\r",
+									"});\r",
+									"//value test for status and gender keys- wrong values\r",
+									"pm.test(\"Status should be active/inactive\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"for (let i = 0; i < json_Data.length; i++) {\r",
+									"  actual_status = json_Data[i].status\r",
+									" pm.expect(actual_status).to.be.oneOf([\"yes\", \"no\"]);\r",
+									"}\r",
+									"});\r",
+									"pm.test(\"gender should be female/male\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"for (let i = 0; i < json_Data.length; i++) {\r",
+									"  actual_gender = json_Data[i].gender\r",
+									" pm.expect(actual_gender).to.be.oneOf([\"women\", \"man\"]);\r",
+									"}\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve the posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json; charset=utf-8\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"// structure test - wrong key types\r",
+									"var schema = {\r",
+									"    \"type\": \"array\",\r",
+									"    \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"required\": [\r",
+									"            \"id\",\r",
+									"            \"user_id\",\r",
+									"            \"title\",\r",
+									"            \"body\"\r",
+									"        ],\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"user_id\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"title\": {\r",
+									"                \"type\": \"integer\"\r",
+									"            },\r",
+									"            \"body\": {\r",
+									"                \"type\": \"string\"\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//keys test - additional keys\r",
+									"pm.test(\"Response body valid keys test\", function () {\r",
+									"  var data = JSON.parse(responseBody);\r",
+									"  data.forEach(function(item) {\r",
+									"      pm.expect(item).to.have.all.keys('id', 'user_id', 'title', 'body', 'author'); \r",
+									"  });\r",
+									"});\r",
+									"//value test for ID's are not unique\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"let IDs = response.map(obj => obj.id); \r",
+									"\r",
+									"function hasDuplicates(array) {\r",
+									"    return (new Set(array)).size !== array.length;\r",
+									"}\r",
+									"\r",
+									"pm.test(\"Check IDs are unique\", () => {\r",
+									"    pm.expect(hasDuplicates(IDs)).to.equal(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/posts",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Retrieve the todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json;\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json;');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"// structure test - wrong data types, status missing\r",
+									"var schema = {\r",
+									"    \"type\": \"array\",\r",
+									"    \"items\": {\r",
+									"        \"type\": \"object\",\r",
+									"        \"required\": [\r",
+									"            \"id\",\r",
+									"            \"user_id\",\r",
+									"            \"title\",\r",
+									"            \"due_on\"\r",
+									"        ],\r",
+									"        \"properties\": {\r",
+									"            \"id\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"user_id\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"title\": {\r",
+									"                \"type\": \"string\"\r",
+									"            },\r",
+									"            \"due_on\": {\r",
+									"                \"type\": \"string\"\r",
+									"            }\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.test('Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//keys test- keys missing\r",
+									"pm.test(\"Response body valid keys test\", function () {\r",
+									"  var data = JSON.parse(responseBody);\r",
+									"  data.forEach(function(item) {\r",
+									"      pm.expect(item).to.have.all.keys('id', 'user_id', 'title'); \r",
+									"  });\r",
+									"});\r",
+									"//value test for not unique ID's, and only one status predefinied\r",
+									"const response = pm.response.json(); \r",
+									"\r",
+									"let IDs = response.map(obj => obj.id); \r",
+									"\r",
+									"function hasDuplicates(array) {\r",
+									"    return (new Set(array)).size !== array.length;\r",
+									"}\r",
+									"pm.test(\"Check IDs are unique\", () => {\r",
+									"    pm.expect(hasDuplicates(IDs)).to.equal(true);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"status should be pending/completed\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"for (let i = 0; i < json_Data.length; i++) {\r",
+									"  actual_status = json_Data[i].status\r",
+									" pm.expect(actual_status).to.be.oneOf([\"pending\"]);\r",
+									"}\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/todos",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/json\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = JSON.parse(pm.request.body);\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"var schema ={\r",
+									"    \"type\": \"object\",\r",
+									"    \"required\": [\r",
+									"        \"id\",\r",
+									"        \"name\",\r",
+									"        \"email\",\r",
+									"        \"gender\",\r",
+									"        \"status\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"id\": {\r",
+									"            \"type\": \"integer\"\r",
+									"        },\r",
+									"        \"name\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"email\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"gender\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"status\": {\r",
+									"            \"type\": \"string\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"var jsonResponse = pm.response.json();\r",
+									"pm.test('Response Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonResponse, schema)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"//value test for status and gender keys\r",
+									"pm.test(\"Status should be active/inactive\", function () {\r",
+									"    var json_Data = JSON.parse(pm.request.body);\r",
+									" actual_status = json_Data[0].status\r",
+									"  console.log(actual_status);\r",
+									" pm.expect(actual_status).to.be.oneOf([\"active\", \"inactive\"]);\r",
+									"});\r",
+									"pm.test(\"gender should be female/male\", function () {\r",
+									"    var json_Data = JSON.parse(pm.request.body);\r",
+									"\r",
+									"  actual_gender = json_Data[0].gender\r",
+									" pm.expect(actual_gender).to.be.oneOf([\"female\", \"male\"]);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followAuthorizationHeader": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sam Guneta\",\r\n    \"email\": \"S854_7gunsd887d@pacocha.co\",\r\n    \"gender\": \"other\",\r\n    \"country\" : \"USA\",\r\n    \"status\": \"none\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new user-Missing body parts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"// request structure test \r",
+									"var schema ={\r",
+									"    \"type\": \"object\",\r",
+									"    \"required\": [\r",
+									"        \"name\",\r",
+									"        \"email\",\r",
+									"        \"gender\",\r",
+									"        \"status\"\r",
+									"    ],\r",
+									"    \"properties\": {\r",
+									"        \"name\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"email\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"gender\": {\r",
+									"            \"type\": \"string\"\r",
+									"        },\r",
+									"        \"status\": {\r",
+									"            \"type\": \"string\"\r",
+									"        }\r",
+									"    }\r",
+									"};\r",
+									"var jsonRequest = JSON.parse(pm.request.body);\r",
+									"pm.test('Request Schema is valid', function() {\r",
+									"  pm.expect(tv4.validate(jsonRequest, schema)).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followAuthorizationHeader": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"Sam_gu777nsd7d@pacocha.co\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new user- invalid datatype",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"\r",
+									"const jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test('Request Schema is valid', function() {\r",
+									"pm.expect(jsonData.id).to.be.a(\"number\");\r",
+									"pm.expect(jsonData.name).to.be.a(\"string\");\r",
+									"pm.expect(jsonData.email).to.be.a(\"string\");\r",
+									"pm.expect(jsonData.gender).to.be.a(\"string\");\r",
+									"pm.expect(jsonData.status).to.be.a(\"string\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followAuthorizationHeader": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sam Guneta\",\r\n    \"email\": \"setmoha89n898@raynor.example\",\r\n    \"gender\": \"male\",\r\n    \"status\": 75\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s post-wrong req body type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"//response header test\r",
+									"pm.test(\"Content-Type header is application/jso\", () => {\r",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+									"});\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Check request type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n        \"user_id\": {{userId}},\r\n        \"title\": \"Tertius modi cum creator sed voluptatibus.\",\r\n        \"body\": \"Constans et colo. Teres vulpes tego. Nihil versus artificiose. Dolorem colloco caecus. Cerno ara desolo. Censura soleo totus. Reiciendis casus succurro. Suffragium trepide reiciendis. Thesaurus abbas cursim. Ager et amitto. Tutamen commodi copia. Ducimus trans tonsor. Audentia considero somnus. Avaritia vis dolores. Sollers cohaero complectus. Vivo admoneo voluptas. Absens bestia est. Ultra defluo at. Avarus placeat aut.\"\r\n    },\r\n    {\r\n        \"user_id\": {{userId}},\r\n        \"title\": \"Tertius modi cum creator sed voluptatibus.\",\r\n        \"body\": \"Constans et colo. Teres vulpes tego. Nihil versus artificiose. Dolorem colloco caecus. Cerno ara desolo. Censura soleo totus. Reiciendis casus succurro. Suffragium trepide reiciendis. Thesaurus abbas cursim. Ager et amitto. Tutamen commodi copia. Ducimus trans tonsor. Audentia considero somnus. Avaritia vis dolores. Sollers cohaero complectus. Vivo admoneo voluptas. Absens bestia est. Ultra defluo at. Avarus placeat aut.\"\r\n    } ]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909/posts",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s post-missing body part",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"pm.test(\"Req body valid keys test\", function () {\r",
+									"  var data = JSON.parse(pm.request.body);\r",
+									"  pm.expect(data).to.have.all.keys('id', 'user_id', 'title', 'body'); \r",
+									" \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n        \"user_id\": {{userId}},\r\n        \"body\": \"Constans et colo. Teres vulpes tego. Nihil versus artificiose. Dolorem colloco caecus. Cerno ara desolo. Censura soleo totus. Reiciendis casus succurro. Suffragium trepide reiciendis. Thesaurus abbas cursim. Ager et amitto. Tutamen commodi copia. Ducimus trans tonsor. Audentia considero somnus. Avaritia vis dolores. Sollers cohaero complectus. Vivo admoneo voluptas. Absens bestia est. Ultra defluo at. Avarus placeat aut.\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909/posts",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s post- blank body part",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"pm.test(\"Req body has no blanks test\", function () {\r",
+									"  var data = JSON.parse(pm.request.body); \r",
+									"  pm.expect(data.title).to.be.a('string').and.not.be.empty;\r",
+									"  pm.expect(data.body).to.be.a('string').and.not.be.empty;\r",
+									" \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n        \"user_id\": {{userId}},\r\n        \"title\": \"\",\r\n        \"body\": \"Constans et colo. Teres vulpes tego. Nihil versus artificiose. Dolorem colloco caecus. Cerno ara desolo. Censura soleo totus. Reiciendis casus succurro. Suffragium trepide reiciendis. Thesaurus abbas cursim. Ager et amitto. Tutamen commodi copia. Ducimus trans tonsor. Audentia considero somnus. Avaritia vis dolores. Sollers cohaero complectus. Vivo admoneo voluptas. Absens bestia est. Ultra defluo at. Avarus placeat aut.\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909/posts",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s todo- wrong req body type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//response status positive test\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"//response body type test\r",
+									"const jsonData = pm.response.json();\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n       \r\n        \"user_id\":1748909,\r\n        \"title\": \"Omnis impedit attonbitus molestiae demo.\",\r\n        \"due_on\": \"2023-05-22T00:00:00.000+05:30\",\r\n        \"status\": \"completed\"\r\n    },\r\n    {\r\n       \r\n    \"user_id\":{{userId}},\r\n        \"title\": \"Omnis impedit attonbitus molestiae demo.\",\r\n        \"due_on\": \"2023-05-22T00:00:00.000+05:30\",\r\n        \"status\": \"completed\"\r\n    }]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909/todos",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s todo- missing body part",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//keys test\r",
+									"pm.test(\"Response body valid keys test\", function () {\r",
+									"  var data = JSON.parse(responseBody);\r",
+									"  pm.expect(data).to.have.all.keys('id', 'user_id', 'title', 'due_on','status'); \r",
+									"  \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n        \"user_id\":1748909,\r\n        \"due_on\": \"2023-05-22T00:00:00.000+05:30\",\r\n        \"status\": \"completed\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909/todos",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s todo-  blank body part",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"pm.test(\"Req body has no blanks test\", function () {\r",
+									"  var data = JSON.parse(pm.request.body); \r",
+									"  pm.expect(data.title).to.be.a('string').and.not.be.empty;\r",
+									"  pm.expect(data.due_on).to.be.a('string').and.not.be.empty;\r",
+									"  pm.expect(data.status).to.be.a('string').and.not.be.empty;\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"user_id\":1748909,\r\n        \"title\": \"\",\r\n        \"due_on\": \"2023-05-22T00:00:00.000+05:30\",\r\n        \"status\": \"completed\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909/todos",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s todo-  invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"pm.test(\"Status code is 422\", function () {\r",
+									"    pm.response.to.have.status(422);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"user_id\": 1748909,\r\n        \"title\": \"mytitle654\",\r\n        \"due_on\": \"2023-05-22T00:00:00.000+05:30\",\r\n        \"status\": \"pending\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909/todos",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s todo-  invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "a54",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"user_id\":1748909,\r\n        \"title\": \"mytitle654\",\r\n        \"due_on\": \"2023-05-22T00:00:00.000+05:30\",\r\n        \"status\": \"done\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909/todos",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user’s todo-  invalid key value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"pm.test(\"status should be pending/completed\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"  actual_status = json_Data.status;\r",
+									" pm.expect(actual_status).to.be.oneOf([\"pending\", \"completed\"]);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"user_id\":1748909,\r\n        \"title\": \"mytitle654\",\r\n        \"due_on\": \"2023-05-22T00:00:00.000+05:30\",\r\n        \"status\": \"done\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909/todos",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change the created user- wrong body type",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"\r",
+									"//request body type test\r",
+									"const jsonData = JSON.parse(pm.request.body);\r",
+									"pm.test(\"Check response type\", function() {    \r",
+									"    pm.expect(jsonData).to.be.an('object');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n  \"id\": 1748909,\r\n  \"name\": \"Anala Patel\",\r\n  \"email\": \"0Luke7d898sd_gd@pacocha.co\",\r\n  \"gender\": \"female\",\r\n  \"status\": \"active\"\r\n},\r\n{\r\n  \"id\": {{userId}},\r\n  \"name\": \"Anala Patel\",\r\n  \"email\": \"0Luke7d898sd_gd@pacocha.co\",\r\n  \"gender\": \"female\",\r\n  \"status\": \"active\"\r\n}]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748909",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748909"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change the created user- blank key values",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"pm.test(\"Req body has no blanks test\", function () {\r",
+									"  var data = JSON.parse(pm.request.body); \r",
+									"  pm.expect(data.id).not.to.be.null\r",
+									"  pm.expect(data.name).to.be.a('string').and.not.be.empty;\r",
+									"  pm.expect(data.email).to.be.a('string').and.not.be.empty;\r",
+									"  pm.expect(data.gender).to.be.a('string').and.not.be.empty;\r",
+									"  pm.expect(data.status).to.be.a('string').and.not.be.empty;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{userId}},\r\n  \"name\": \"\",\r\n  \"email\": \"0Luke7d898sd_gd@pacocha.co\",\r\n  \"gender\": \"female\",\r\n  \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/{{userId}}",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change the created user- missing body parts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//keys test\r",
+									"pm.test(\"Response body valid keys test\", function () {\r",
+									"  var data = JSON.parse(responseBody);\r",
+									"  pm.expect(data).to.have.all.keys('id', 'name', 'email', 'gender','status'); \r",
+									"  \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{userId}},\r\n  \"name\": \"Anala Patel\",\r\n  \"email\": \"0Luke7d898sd_gd@pacocha.co\",\r\n  \"gender\": \"female\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/{{userId}}",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change the created user- invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.not.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 1108,\r\n  \"name\": \"Anala Patel\",\r\n  \"email\": \"0Luke7d898sd_gd@pacocha.co\",\r\n  \"gender\": \"female\",\r\n  \"status\": \"active\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1108",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1108"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change the created user- wrong key value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//value test for status and gender keys\r",
+									"pm.test(\"Status should be active/inactive\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"  actual_status = json_Data.status\r",
+									" pm.expect(actual_status).to.be.oneOf([\"active\", \"inactive\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"gender should be female/male\", function () {\r",
+									"    var json_Data = pm.response.json();\r",
+									"  actual_gender = json_Data.gender\r",
+									" pm.expect(actual_gender).to.be.oneOf([\"female\", \"male\"]);\r",
+									"\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{userId}},\r\n  \"name\": \"Anala Patel\",\r\n  \"email\": \"0Luke7d898sd_gd@pacocha.co\",\r\n  \"gender\": \"1711719\",\r\n  \"status\": \"other\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/{{userId}}",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete the changed user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//status code test 204\r",
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748228",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748228"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete the changed user- invalid id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"\r",
+									"//response body test\r",
+									"var jsonResponse = pm.response.text();\r",
+									"pm.test('Response should be blank', function() {\r",
+									"  console.log(jsonResponse.length);\r",
+									"  pm.expect(jsonResponse.length).to.eql(0);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748228",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748228"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete the changed user- invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//response time\r",
+									"console.log(\"Response time is in ms: \" + pm.response.responseTime)\r",
+									"\r",
+									"//status code test 401\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "112",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gorest.co.in/public/v2/users/1748228",
+							"protocol": "https",
+							"host": [
+								"gorest",
+								"co",
+								"in"
+							],
+							"path": [
+								"public",
+								"v2",
+								"users",
+								"1748228"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": " ",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://gorest.co.in/public/v2",
+			"type": "string"
+		},
+		{
+			"key": "completed_count",
+			"value": ""
+		},
+		{
+			"key": "pending_count",
+			"value": ""
+		}
+	]
+}
